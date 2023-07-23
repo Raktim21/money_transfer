@@ -49,8 +49,8 @@
                 </a>
             </li>
 
-            <li class="nav-item @yield('user')">
-                <a class="d-flex align-items-center" href="">
+            <li class="nav-item @yield('admin.user.list')">
+                <a class="d-flex align-items-center" href="{{ route('admin.user.list') }}">
                     <i data-feather="user"></i>
                     <span class="menu-title text-truncate" data-i18n="Users">Users</span>
                 </a>

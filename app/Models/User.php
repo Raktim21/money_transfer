@@ -58,4 +58,21 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function scopeSearch($query){
+
+        $search = request()->search;
+        $role   = request()->role;
+        $start  = request()->start_date;
+        $end    = request()->end_date;
+        return  $query->when(request()->search, function ($q) use ($search) {
+                            return $q->where('name', 'like', "%$search%")->orWhere('email', 'like', "%$search%")->orWhere('phone', 'like', "%$search%");
+                        })->when(request()->role, function ($q) use ($role) {
+                            return $q->where('role', $role);
+                        })->when(request()->start_date, function ($q) use ($start, $end) {
+                            return $q->whereBetween('created_at', [$start, $end]);
+                        });
+
+    }
 }
