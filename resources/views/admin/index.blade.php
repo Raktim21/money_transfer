@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/vendors/css/charts/apexcharts.css') }}">
 @endsection
 
+@section('Title', 'Dashboard')
 @section('dashboard', 'active')
     
 

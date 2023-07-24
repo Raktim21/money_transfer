@@ -28,7 +28,7 @@ class UserCreateRequest extends FormRequest
             'password_confirmation' => 'required',
             'role'                  => 'required|in:admin,sender,receiver',
             'phone'                 => 'required|string|max:11',
-            'avatar'                => 'nullable|image|mimes:png,jpg,jpeg',
+            'avater'                => 'nullable|image|mimes:png,jpg,jpeg',
         ];
     }
 
@@ -55,6 +55,8 @@ class UserCreateRequest extends FormRequest
             'phone.required'                 => 'Phone is required',
             'phone.string'                   => 'Invalide phone',
             'phone.max'                      => 'Phone is too long',
+            'avater.image'                   => 'Invalide avater image type',
+            'avater.mimes'                   => 'Invalide avater image type',
             
         ];
     }

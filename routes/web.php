@@ -23,10 +23,6 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
-    // Route::get('/dashboard', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
-
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
@@ -37,7 +33,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             Route::get('index','index')->name('admin.user.list');
             Route::post('store','store')->name('admin.user.store');
             Route::post('update/{id}','update')->name('admin.user.update');
-            Route::get('delete/{id}','delete')->name('admin.user.delete');
+            Route::post('delete/{id}','delete')->name('admin.user.delete');
         });
         
     });

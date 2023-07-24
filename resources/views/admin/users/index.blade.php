@@ -8,9 +8,32 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/plugins/forms/pickers/form-flat-pickr.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/components.css') }}">
+
 @endsection
 
+@section('title', 'Users')
 @section('admin.user.list', 'active')
+
+
+
+
+@section('breadcrumb')
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0">Home</h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="">Users</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
     
 
 
@@ -33,7 +56,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="{{ route('admin.user.store') }}" method="POST">
+                            <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body">
                                     <div class="form-group">
@@ -117,30 +140,35 @@
             </div>
             <div class="card-body">
                 <p class="card-text">
-                   <form action="">
+                   <form action="{{ route('admin.user.list') }}" method="GET">
                         <div class="row">
-                            <div class="col-sm-12 col-md-4">
-                                <input type="text" class="form-control" placeholder="Name/Email/Phone">
+                            <div class="col-sm-12 col-md-5">
+                                <input type="text" name="search" class="form-control" placeholder="Name/Email/Phone" value="{{ request()->search ?? '' }}">
                             </div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-3">
                                 <select class="form-control select2" id="role_select">
-                                    <option value="admin">Admin</option>
-                                    <option value="sender">Sender</option>
-                                    <option value="receiver">Receiver</option>
+                                    <option>--Select--</option>
+                                    <option @if(request()->role == 'admin') selected @endif value="admin">Admin</option>
+                                    <option @if(request()->role == 'sender') selected @endif value="sender">Sender</option>
+                                    <option @if(request()->role == 'receiver') selected @endif value="receiver">Receiver</option>
                                 </select>
                             </div>
 
-                            <div class="col-sm-12 col-md-2">
+                            {{-- <div class="col-sm-12 col-md-2">
                                 <input type="text" id="start_date" class="form-control flatpickr-basic" placeholder="Start Date" />
                             </div>
 
                             <div class="col-sm-12 col-md-2">
                                 <input type="text" id="end_date" class="form-control flatpickr-basic" placeholder="End Date" />
+                            </div> --}}
+
+                            <div class="col-sm-12 col-md-4">
+                                <button class="btn btn-primary" >Search</button>
+                                @if (request()->search || request()->role)
+                                    <a class="btn btn-danger" href="{{ route('admin.user.list') }}" >Clear filter</a>
+                                @endif
                             </div>
 
-                            <div class="col-sm-12 col-md-2">
-                                <button class="btn btn-primary" >Search</button>
-                            </div>
                         </div>
                    </form>
                 </p>
@@ -185,32 +213,39 @@
                                             <i data-feather="more-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);">
+                                            <a class="dropdown-item" data-toggle="modal" data-target="#edit_modal{{ $user->id }}" >
                                                 <i data-feather="edit-2" class="mr-50"></i>
                                                 <span>Edit</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:void(0);">
+                                            <a class="dropdown-item" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $user->id }}').submit();">
                                                 <i data-feather="trash" class="mr-50"></i>
                                                 <span>Delete</span>
                                             </a>
+
+                                            <form action="{{ route('admin.user.delete',$user->id) }}" id="delete-form-{{ $user->id }}" method="post">
+                                                @csrf
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
 
 
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal fade" id="edit_modal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalCenterTitle">Add new user</h5>
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Update user</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{ route('admin.user.store') }}" method="POST">
+                                        <form action="{{ route('admin.user.update',$user->id) }}" method="POST" enctype="multipart/form-data" >
                                             @csrf
                                             <div class="modal-body">
+                                                <div class="form-group text-center">
+                                                    <img src="{{ asset($user->profile_photo_path ?? 'default/default_user.jpg') }}" class="mr-75" height="100" width="100" alt="">
+                                                </div>
                                                 <div class="form-group">
                                                     <label for="avater">User Avater</label>
                                                     <div class="custom-file">
@@ -226,59 +261,27 @@
             
                                                 <div class="form-group">
                                                     <label for="role">Select a role <span class="text-danger">*</span></label>
-                                                    <select class="form-control select2" id="role" name="role">
+                                                    <select class="form-control" id="role" name="role">
                                                         <option>--Select--</option>
-                                                        <option @if(old('role') == 'admin') selected @endif value="admin">Admin</option>
-                                                        <option @if(old('role') == 'sender') selected @endif value="sender">Sender</option>
-                                                        <option @if(old('role') == 'receiver') selected @endif value="receiver">Receiver</option>
+                                                        <option @if($user->role == 'admin') selected @endif value="admin">Admin</option>
+                                                        <option @if($user->role == 'sender') selected @endif value="sender">Sender</option>
+                                                        <option @if($user->role == 'receiver') selected @endif value="receiver">Receiver</option>
                                                     </select>
                                                 </div> 
             
                                                 <div class="form-group">
                                                     <label for="name">Name <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" value="{{ old('name') }}">
+                                                    <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" value="{{ $user->name }}">
                                                 </div>  
             
                                                 <div class="form-group">
                                                     <label for="email">Email <span class="text-danger">*</span></label>
-                                                    <input type="email" class="form-control" id="email" name="email" placeholder="john@example.com" value="{{ old('email') }}">
+                                                    <input type="email" class="form-control" id="email" name="email" placeholder="john@example.com" value="{{ $user->email }}">
                                                 </div>            
             
                                                 <div class="form-group">
                                                     <label for="phone">Phone <span class="text-danger">*</span></label>
-                                                    <input type="phone" class="form-control" id="phone" name="phone" placeholder="john@example.com" value="{{ old('phone') }}">
-                                                </div>
-            
-                                                <div class="form-group">
-                                                    <div class="d-flex justify-content-between">
-                                                        <label for="password">Password <span class="text-danger">*</span></label>
-                                                    </div>
-                                                    <div class="input-group input-group-merge form-password-toggle">
-                                                        <input required type="password" class="form-control form-control-merge"
-                                                            id="password" name="password" tabindex="2" placeholder="****"
-                                                            aria-describedby="login-password" />
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text cursor-pointer">
-                                                                <i data-feather="eye"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-            
-            
-                                                <div class="form-group">
-            
-                                                    <div class="d-flex justify-content-between">
-                                                        <label for="password_confirmation">Confirm password <span class="text-danger">*</span></label>
-                                                    </div>
-                                                    <div class="input-group input-group-merge form-password-toggle">
-                                                        <input required type="password" class="form-control form-control-merge" id="password_confirmation" name="password_confirmation" tabindex="2" placeholder="****" aria-describedby="login-password" />
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text cursor-pointer">
-                                                                <i data-feather="eye"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
+                                                    <input type="phone" class="form-control" id="phone" name="phone" placeholder="john@example.com" value="{{ $user->phone }}">
                                                 </div>
                                            
                                             </div>
@@ -290,8 +293,17 @@
                                 </div>
                             </div>
                         @endforeach
+                     
                     </tbody>
+
+                    {{-- <div class="pagination">
+
+                        {{ $users->links() }}
+                    </div> --}}
                 </table>
+                <hr>
+                {{ $users->links() }}
+               
             </div>
         </div>
     </div>
@@ -312,6 +324,10 @@
     <script src="{{ asset('dashboard_assets/app-assets/vendors/js/pickers/pickadate/legacy.js')}}"></script>
     <script src="{{ asset('dashboard_assets/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js')}}"></script>
     <script src="{{ asset('dashboard_assets/app-assets/js/scripts/forms/pickers/form-pickers.js')}}"></script>
+    <script src="{{ asset('dashboard_assets/app-assets/vendors/js/pagination/jquery.bootpag.min.js')}}"></script>
+    <script src="{{ asset('dashboard_assets/app-assets/vendors/js/pagination/jquery.twbsPagination.min.js')}}"></script>
+
+    <script src="{{ asset('dashboard_assets/app-assets/js/scripts/pagination/components-pagination.js') }}"></script>
 
     
 

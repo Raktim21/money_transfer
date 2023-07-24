@@ -26,7 +26,7 @@
     {{-- <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT"> --}}
-    <title>Dashboard ecommerce - Vuexy - Bootstrap HTML admin template</title>
+    <title>@yield('title')</title>
     <link rel="apple-touch-icon" href="{{ asset('dashboard_assets/app-assets/images/ico/apple-icon-120.png') }}">
     <link rel="shortcut icon" type="image/x-icon"
         href="{{ asset('dashboard_assets/app-assets/images/ico/favicon.ico') }}">
@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/vendors/css/vendors.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/vendors/css/extensions/toastr.min.css') }}">
     <!-- END: Vendor CSS-->
-
+    
     @yield('css')
 
     <!-- BEGIN: Theme CSS-->
@@ -49,7 +49,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/themes/bordered-layout.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/themes/semi-dark-layout.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
-
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/plugins/extensions/ext-component-toastr.css') }}"> --}}
+    
 
     @yield('page_css')
 
@@ -87,10 +88,10 @@
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
-                        <a class="dropdown-item" href="">
+                        {{-- <a class="dropdown-item" href="">
                             <i class="mr-50" data-feather="user"></i>
                             Profile
-                        </a>
+                        </a> --}}
 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -162,10 +163,13 @@
     <!-- BEGIN: Theme JS-->
     <script src="{{ asset('dashboard_assets/app-assets/js/core/app-menu.js') }}"></script>
     <script src="{{ asset('dashboard_assets/app-assets/js/core/app.js') }}"></script>
+    {{-- <script src="{{ asset('dashboard_assets/app-assets/js/scripts/extensions/ext-component-toastr.js') }}"></script> --}}
+
+    
     <!-- END: Theme JS-->
 
     @yield('page_js')
-
+    
 
 
     <script>
@@ -186,7 +190,10 @@
                     '{{ $error }}',
                     {
                         closeButton: true,
-                        tapToDismiss: false
+                        tapToDismiss: false,
+                        timeOut: 5000,
+                        progressBar: true,
+                        color: 'danger'
                     }
                 );
             </script>
@@ -199,7 +206,10 @@
                 '{{ session()->get('error') }}',
                 {
                     closeButton: true,
-                    tapToDismiss: false
+                    tapToDismiss: false,
+                    timeOut: 5000,
+                    progressBar: true,
+                    color: 'danger'
                 }
             );
         </script>
@@ -211,7 +221,10 @@
                 '{{ session()->get('success') }}',
                 {
                     closeButton: true,
-                    tapToDismiss: false
+                    tapToDismiss: true,
+                    timeOut: 5000,
+                    progressBar: true,
+                    color: 'success'
                 }
             );
         </script>
