@@ -75,10 +75,7 @@
                                     <div class="form-group">
                                         <label for="role">Select a role <span class="text-danger">*</span></label>
                                         <select class="form-control select2" id="role" name="role">
-                                            <option>--Select--</option>
-                                            <option @if(old('role') == 'admin') selected @endif value="admin">Admin</option>
-                                            <option @if(old('role') == 'sender') selected @endif value="sender">Sender</option>
-                                            <option @if(old('role') == 'receiver') selected @endif value="receiver">Receiver</option>
+                                            <option selected value="admin">Admin</option>
                                         </select>
                                     </div> 
 
@@ -262,10 +259,7 @@
                                                 <div class="form-group">
                                                     <label for="role">Select a role <span class="text-danger">*</span></label>
                                                     <select class="form-control" id="role" name="role">
-                                                        <option>--Select--</option>
-                                                        <option @if($user->role == 'admin') selected @endif value="admin">Admin</option>
-                                                        <option @if($user->role == 'sender') selected @endif value="sender">Sender</option>
-                                                        <option @if($user->role == 'receiver') selected @endif value="receiver">Receiver</option>
+                                                        <option selected value="admin">Admin</option>
                                                     </select>
                                                 </div> 
             

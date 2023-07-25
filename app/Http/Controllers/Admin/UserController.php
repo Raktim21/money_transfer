@@ -13,7 +13,23 @@ class UserController extends Controller
 {
     public function index(){
 
-        $users = User::search()->paginate(15);
+        $users = User::where('role','admin')->search()->paginate(15);
+
+        return view('admin.users.index',compact('users'));
+    }
+
+
+    public function sender(){
+
+        $users = User::where('role','sender')->search()->paginate(15);
+
+        return view('admin.users.index',compact('users'));
+    }
+
+
+    public function receiver(){
+
+        $users = User::where('role','receiver')->search()->paginate(15);
 
         return view('admin.users.index',compact('users'));
     }
