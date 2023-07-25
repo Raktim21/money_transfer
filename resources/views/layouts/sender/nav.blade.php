@@ -48,27 +48,7 @@
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span>
                 </a>
             </li>
-
-            <li class="nav-item @yield('admin.user.list')">
-                <a class="d-flex align-items-center" href="{{ route('admin.user.list') }}">
-                    <i data-feather="user"></i>
-                    <span class="menu-title text-truncate" data-i18n="Users">Users</span>
-                </a>
-            </li>
-
-            <li class="nav-item @yield('admin.sender.list')">
-                <a class="d-flex align-items-center" href="{{ route('admin.sender.list') }}">
-                    <i data-feather='user-minus'></i>
-                    <span class="menu-title text-truncate" data-i18n="Users">Senders</span>
-                </a>
-            </li>
-            
-            <li class="nav-item @yield('admin.receiver.list')">
-                <a class="d-flex align-items-center" href="{{ route('admin.receiver.list') }}">
-                    <i data-feather='user-plus'></i>
-                    <span class="menu-title text-truncate" data-i18n="Users">Receivers</span>
-                </a>
-            </li>
+           
         </ul>
     </div>
 </div>

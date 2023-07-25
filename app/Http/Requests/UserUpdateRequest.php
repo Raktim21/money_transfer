@@ -25,7 +25,7 @@ class UserUpdateRequest extends FormRequest
             'name'   => 'required|string|max:255',
             'email'  => 'required|string|email|max:255|unique:users,email,'.$this->id,
             'role'   => 'required|in:admin,sender,receiver',
-            'phone'  => 'required|string|max:11',
+            'phone'  => 'required|string|max:11|unique:users,phone,'.$this->id,
             'avater' => 'nullable|image|mimes:png,jpg,jpeg',
         ];
     }

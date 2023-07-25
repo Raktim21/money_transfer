@@ -33,7 +33,7 @@
 @section('content')
     <!-- Dashboard Ecommerce Starts -->
     <section id="dashboard-ecommerce">
-        <span>Admin Dashboard</span>
+        <span>Recever Dashboard</span>
         {{-- <div class="row match-height">
             <!-- Medal Card -->
             <div class="col-xl-4 col-md-6 col-12">

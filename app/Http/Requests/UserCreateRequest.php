@@ -27,7 +27,7 @@ class UserCreateRequest extends FormRequest
             'password'              => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required',
             'role'                  => 'required|in:admin,sender,receiver',
-            'phone'                 => 'required|string|max:11',
+            'phone'                 => 'required|string|max:11|unique:users,phone' ,
             'avater'                => 'nullable|image|mimes:png,jpg,jpeg',
         ];
     }

@@ -25,6 +25,9 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+    Route::post('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/password_update', [DashboardController::class, 'updatePassword'])->name('password.update');
 
 
     Route::middleware(['admin'])->group(function () {
@@ -32,11 +35,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::prefix('user')->controller(UserController::class)->group(function () {
             
             Route::get('index','index')->name('admin.user.list');
-            Route::get('sender','sender')->name('admin.sender.list');
             Route::get('receiver','receiver')->name('admin.receiver.list');
             Route::post('store','store')->name('admin.user.store');
             Route::post('update/{id}','update')->name('admin.user.update');
             Route::post('delete/{id}','delete')->name('admin.user.delete');
+
+
+            Route::get('sender','sender')->name('admin.sender.list');
+            Route::post('sender-recharge/{id}', 'recharge')->name('admin.sender.recharge');
         });
 
 

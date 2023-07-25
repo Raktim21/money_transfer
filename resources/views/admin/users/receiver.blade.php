@@ -12,7 +12,7 @@
 
 @endsection
 
-@section('title', 'Users')
+@section('title', 'Receivers')
 @section('admin.user.list', 'active')
 
 
@@ -26,7 +26,7 @@
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="">Users</a>
+                            <a href="">Receivers</a>
                         </li>
                     </ol>
                 </div>
@@ -44,14 +44,14 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Users</h4>
+                <h4 class="card-title">Receivers</h4>
                 <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter"><i data-feather='plus-square'></i> Add User</button>
 
                 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle">Add new user</h5>
+                                <h5 class="modal-title" id="exampleModalCenterTitle">Add new Receivers</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -75,7 +75,7 @@
                                     <div class="form-group">
                                         <label for="role">Select a role <span class="text-danger">*</span></label>
                                         <select class="form-control select2" id="role" name="role">
-                                            <option selected value="admin">Admin</option>
+                                            <option selected value="receiver">Receiver</option>
                                         </select>
                                     </div> 
 
@@ -137,32 +137,24 @@
             </div>
             <div class="card-body">
                 <p class="card-text">
-                   <form action="{{ route('admin.user.list') }}" method="GET">
+                   <form action="{{ route('admin.receiver.list') }}" method="GET">
                         <div class="row">
-                            <div class="col-sm-12 col-md-5">
+                            <div class="col-sm-12 col-md-4">
                                 <input type="text" name="search" class="form-control" placeholder="Name/Email/Phone" value="{{ request()->search ?? '' }}">
                             </div>
-                            <div class="col-sm-12 col-md-3">
-                                <select class="form-control select2" id="role_select">
-                                    <option>--Select--</option>
-                                    <option @if(request()->role == 'admin') selected @endif value="admin">Admin</option>
-                                    <option @if(request()->role == 'sender') selected @endif value="sender">Sender</option>
-                                    <option @if(request()->role == 'receiver') selected @endif value="receiver">Receiver</option>
-                                </select>
-                            </div>
 
-                            {{-- <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-2">
                                 <input type="text" id="start_date" class="form-control flatpickr-basic" placeholder="Start Date" />
                             </div>
 
                             <div class="col-sm-12 col-md-2">
                                 <input type="text" id="end_date" class="form-control flatpickr-basic" placeholder="End Date" />
-                            </div> --}}
+                            </div>
 
                             <div class="col-sm-12 col-md-4">
                                 <button class="btn btn-primary" >Search</button>
-                                @if (request()->search || request()->role)
-                                    <a class="btn btn-danger" href="{{ route('admin.user.list') }}" >Clear filter</a>
+                                @if (request()->search || request()->start_date || request()->end_date)
+                                    <a class="btn btn-danger" href="{{ route('admin.receiver.list') }}" >Clear filter</a>
                                 @endif
                             </div>
 
@@ -192,15 +184,7 @@
                                 </td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    <span 
-                                    @if ($user->role == 'admin')
-                                        class = 'badge badge-pill badge-light-success mr-1';
-                                    @elseif ($user->role == 'sender')
-                                        class = 'badge badge-pill badge-light-primary mr-1';
-                                    @else 
-                                        class = 'badge badge-pill badge-light-info mr-1';
-                                    @endif
-                                    >{{ ucfirst($user->role)}}</span>
+                                    <span class='badge badge-pill badge-light-info mr-1'>{{ $user->fund }} /-</span>
                                 </td>
                                 <td>{{ $user->phone ?? 'N/A' }}</td>
                                 <td>{{ $user->created_at->diffForHumans() }}</td>
@@ -232,7 +216,7 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalCenterTitle">Update user</h5>
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Update Receivers</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -244,7 +228,7 @@
                                                     <img src="{{ asset($user->profile_photo_path ?? 'default/default_user.jpg') }}" class="mr-75" height="100" width="100" alt="">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="avater">User Avater</label>
+                                                    <label for="avater">Receivers Avater</label>
                                                     <div class="custom-file">
                                                         <input type="file" name="avater" class="custom-file-input" id="avater">
                                                         <label class="custom-file-label" for="avater">Choose file</label>
@@ -259,7 +243,7 @@
                                                 <div class="form-group">
                                                     <label for="role">Select a role <span class="text-danger">*</span></label>
                                                     <select class="form-control" id="role" name="role">
-                                                        <option selected value="admin">Admin</option>
+                                                        <option selected value="receiver">Receiver</option>
                                                     </select>
                                                 </div> 
             

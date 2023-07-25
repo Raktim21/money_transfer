@@ -1,10 +1,7 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            {{-- <x-authentication-card-logo /> --}}
         </x-slot>
-
-        {{-- <x-validation-errors class="mb-4" /> --}}
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
@@ -57,7 +54,7 @@
             </div>
         </form>
     </x-authentication-card>
-</x-guest-layout>
+</x-guest-layout> --}}
 
 
 
@@ -69,35 +66,34 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    {{-- <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
-    <title>Register Page - Vuexy - Bootstrap HTML admin template</title>
-    <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
+    <meta name="author" content="PIXINVENT"> --}}
+    <title>Register</title>
+    <link rel="apple-touch-icon" href="{{ asset('dashboard_assets/app-assets/images/ico/apple-icon-120.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboard_assets/app-assets/images/ico/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/vendors/css/vendors.min.css') }}">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/components.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/themes/dark-layout.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/themes/bordered-layout.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/themes/semi-dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/bootstrap-extended.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/colors.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/themes/dark-layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/themes/bordered-layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/themes/semi-dark-layout.css') }}">
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/plugins/forms/form-validation.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/pages/page-auth.css">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/plugins/forms/form-validation.css') }}"> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/app-assets/css/pages/page-auth.css') }}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/assets/css/style.css') }}">
     <!-- END: Custom CSS-->
 
 </head>
@@ -109,7 +105,7 @@
     <!-- BEGIN: Content-->
     <div class="app-content content ">
         <div class="content-overlay"></div>
-        <div class="header-navbar-shadow"></div>
+        {{-- <div class="header-navbar-shadow"></div> --}}
         <div class="content-wrapper">
             <div class="content-header row">
             </div>
@@ -126,68 +122,94 @@
                                 {{-- <h4 class="card-title mb-1">Adventure starts here 🚀</h4>
                                 <p class="card-text mb-2">Make your app management easy and fun!</p> --}}
 
-                                <form class="auth-register-form mt-2" action="index.html" method="POST">
+                                <form class="mt-2" action="{{ route('register') }}" method="POST">
+                                    @csrf
                                     <div class="form-group">
-                                        <label for="register-username" class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="register-username" name="register-username" placeholder="johndoe" aria-describedby="register-username" tabindex="1" autofocus />
+                                        <label for="role" class="form-label">Select account type <span class="text-danger">*</span></label>
+                                        <select required name="role" id="role" class="form-control">
+                                            <option value="">--Select--</option>
+                                            <option value="sender">Sender</option>
+                                            <option value="receiver">Receiver</option>
+                                        </select>
+                                        @if ($errors->has('role'))
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $errors->first('role') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
+
+
                                     <div class="form-group">
-                                        <label for="register-email" class="form-label">Email</label>
-                                        <input type="text" class="form-control" id="register-email" name="register-email" placeholder="john@example.com" aria-describedby="register-email" tabindex="2" />
+                                        <label for="name" class="form-label">Username <span class="text-danger">*</span></label>
+                                        <input required type="text" class="form-control" id="name" name="name" placeholder="johndoe" aria-describedby="name" tabindex="1" autofocus />
+                                        @if ($errors->has('name'))
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                        <input required type="email" class="form-control" id="email" name="email" placeholder="john@example.com" aria-describedby="email" tabindex="2" />
+                                        @if ($errors->has('email'))
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="register-password" class="form-label">Password</label>
+                                        <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
+                                        <input required type="phone" class="form-control" id="phone" name="phone" placeholder="+123xxxx211" aria-describedby="phone" tabindex="2" />
+                                        @if ($errors->has('phone'))
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $errors->first('phone') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
 
                                         <div class="input-group input-group-merge form-password-toggle">
-                                            <input type="password" class="form-control form-control-merge" id="register-password" name="register-password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="register-password" tabindex="3" />
+                                            <input required type="password" class="form-control form-control-merge" id="password" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="register-password" tabindex="3" />
                                             <div class="input-group-append">
                                                 <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                             </div>
                                         </div>
+
+                                        @if ($errors->has('password'))
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
+
                                     <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" id="register-privacy-policy" tabindex="4" />
-                                            <label class="custom-control-label" for="register-privacy-policy">
-                                                I agree to <a href="javascript:void(0);">privacy policy & terms</a>
-                                            </label>
+                                        <label for="password_confirmation" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+
+                                        <div class="input-group input-group-merge form-password-toggle">
+                                            <input required type="password" class="form-control form-control-merge" id="password_confirmation" name="password_confirmation" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="register-password" tabindex="3" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                                            </div>
                                         </div>
+
+                                        @if ($errors->has('password_confirmation'))
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
-                                    <button class="btn btn-primary btn-block" tabindex="5">Sign up</button>
+                                    <button type="submit" class="btn btn-primary btn-block" tabindex="5">Sign up</button>
                                 </form>
-
-                                <p class="text-center mt-2">
-                                    <span>Already have an account?</span>
-                                    <a href="page-auth-login-v1.html">
-                                        <span>Sign in instead</span>
-                                    </a>
-                                </p>
-
-                                <div class="divider my-2">
-                                    <div class="divider-text">or</div>
-                                </div>
-
-                                <div class="auth-footer-btn d-flex justify-content-center">
-                                    <a href="javascript:void(0)" class="btn btn-facebook">
-                                        <i data-feather="facebook"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" class="btn btn-twitter white">
-                                        <i data-feather="twitter"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" class="btn btn-google">
-                                        <i data-feather="mail"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" class="btn btn-github">
-                                        <i data-feather="github"></i>
-                                    </a>
-                                </div>
                             </div>
                         </div>
                         <!-- /Register v1 -->
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -195,20 +217,20 @@
 
 
     <!-- BEGIN: Vendor JS-->
-    <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+    <script src="{{ asset('dashboard_assets/app-assets/vendors/js/vendors.min.js') }}"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="../../../app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
+    <script src="{{ asset('dashboard_assets/app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="../../../app-assets/js/core/app-menu.js"></script>
-    <script src="../../../app-assets/js/core/app.js"></script>
+    <script src="{{ asset('dashboard_assets/app-assets/js/core/app-menu.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/app-assets/js/core/app.js') }}"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="../../../app-assets/js/scripts/pages/page-auth-register.js"></script>
+    <script src="{{ asset('dashboard_assets/app-assets/js/scripts/pages/page-auth-register.js') }}"></script>
     <!-- END: Page JS-->
 
     <script>

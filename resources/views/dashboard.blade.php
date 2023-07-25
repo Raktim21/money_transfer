@@ -26,7 +26,7 @@
     {{-- <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT"> --}}
-    <title>@yield('title')</title>
+    <title> {{ ucfirst(Auth::user()->role) }} | @yield('title')</title>
     <link rel="apple-touch-icon" href="{{ asset('dashboard_assets/app-assets/images/ico/apple-icon-120.png') }}">
     <link rel="shortcut icon" type="image/x-icon"
         href="{{ asset('dashboard_assets/app-assets/images/ico/favicon.ico') }}">
@@ -80,7 +80,13 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="user-nav d-sm-flex d-none">
                             <span class="user-name font-weight-bolder">{{ Auth::user()->name }}</span>
-                            <span class="user-status">{{ Auth::user()->email }}</span>
+                           
+                            @if (Auth::user()->role == 'admin')
+                                <span class="user-status">{{ Auth::user()->email }}</span>
+                            @else
+                                <span class="user-status badge badge-pill badge-light-info">{{ Auth::user()->fund }}</span>
+                            @endif
+                       
                         </div>
                         <span class="avatar">
                             <img class="round"  src="{{ asset('dashboard_assets/app-assets/images/portrait/small/avatar-s-11.jpg') }}"  alt="avatar" height="40" width="40">
@@ -88,10 +94,10 @@
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
-                        {{-- <a class="dropdown-item" href="">
+                        <a class="dropdown-item" href="{{ route('profile') }}">
                             <i class="mr-50" data-feather="user"></i>
                             Profile
-                        </a> --}}
+                        </a>
 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -112,6 +118,14 @@
 
     @if (Auth::user()->role == 'admin')
         @include('layouts.admin.nav')
+    @endif
+    @if (Auth::user()->role == 'sender')
+        @include('layouts.sender.nav')
+    @endif
+
+    @if (Auth::user()->role == 'receiver')
+        @include('layouts.receiver.nav')
+        
     @endif
 
     <!-- BEGIN: Content-->
@@ -141,9 +155,9 @@
                 {{-- <a class="ml-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a> --}}
                 <span class="d-none d-sm-inline-block">, All rights Reserved</span>
             </span>
-            <span class="float-md-right d-none d-md-block">
+            {{-- <span class="float-md-right d-none d-md-block">
                 Hand-crafted & Made with<i data-feather="heart"></i>
-            </span>
+            </span> --}}
         </p>
     </footer>
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
