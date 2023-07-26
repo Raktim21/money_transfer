@@ -38,7 +38,7 @@ jobs:
           with:
             server: nooraa19.com
             username: u100338335.money.qamcl.com
-            password: Raktim@1997
+            password: cv#4$sa%A12ds
             exclude:  |
               **/.git*
               **/.git*/**
@@ -51,7 +51,7 @@ jobs:
           with:
             host: 89.117.139.186
             username: u652464815
-            password: sDe3erf@#^^y231v
+            password: Raktim@1997
             port: 65002
             script: |
                 cd domains/money.qamcl.com/public_html/
