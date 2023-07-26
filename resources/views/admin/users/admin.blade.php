@@ -139,7 +139,7 @@
                 <p class="card-text">
                    <form action="{{ route('admin.user.list') }}" method="GET">
                         <div class="row">
-                            <div class="col-sm-12 col-md-r">
+                            <div class="col-sm-12 col-md-4">
                                 <input type="text" name="search" class="form-control" placeholder="Name/Email/Phone" value="{{ request()->search ?? '' }}">
                             </div>
 
