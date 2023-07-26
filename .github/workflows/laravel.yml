@@ -33,7 +33,7 @@ jobs:
         - name: 🚚 Get latest code
           uses: actions/checkout@v2
 
-        - name: 📂 Sync files in client909
+        - name: 📂 Sync files in money.qamcl.com
           uses: SamKirkland/FTP-Deploy-Action@4.3.0
           with:
             server: nooraa19.com
@@ -46,7 +46,7 @@ jobs:
               **/public/upload*/**
           continue-on-error: true     
       
-        - name: executing remote ssh commands in client909
+        - name: executing remote ssh commands in money.qamcl.com
           uses: appleboy/ssh-action@v0.1.10
           with:
             host: 89.117.139.186
